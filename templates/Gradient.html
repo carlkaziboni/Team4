@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Stripe Gradient</title>
+    <link rel="stylesheet" href="static/styles.css">
+    <script src="static/Gradient.js"></script>
+</head>
+<style>
+    body {
+        margin:0;
+        padding:0;
+    }
+    #gradient-canvas {
+        --gradient-color-1: #6ec3f4;
+        --gradient-color-2: #3a3aff;
+        --gradient-color-3: #ff61ab;
+        --gradient-color-4: #E63946;
+    }
+</style>
+<body>
+    <canvas id="gradient-canvas" style="width:100vw;height:100vh"></canvas>
+    
+    <!-- Content over the canvas -->
+    <div class="content" style="position: absolute; top: 2.5%;  left:5%; text-align: center;
+            color: white;">
+        <h1 style="font-size:44; font-family: bold;"> Data Dashboard </h1>
+
+        <div class="container">
+            <!-- Large Image on the left -->
+            <div class="large-image">
+                <img id="large-image" src="static/graph.png" alt="Large Image">
+            </div>
+
+            <!-- Small Images on the right -->
+            <div class="small-images">
+                <img src="static/graph1.png" alt="Small Image 1" onclick="swapImages(this)">
+                <img src="static/random2.webp" alt="Small Image 2" onclick="swapImages(this)">
+                <img src="static/random4.png" alt="Small Image 3" onclick="swapImages(this)">
+            </div>
+
+            <!-- Editable Text Box on the right -->
+            <div class="text-box">
+                <label for="editable-text">Edit Text:</label>
+                <textarea id="editable-text" rows="10" cols="30" placeholder="Enter text here..." readonly>{{ text }}</textarea>
+            </div>
+        </div>
+    </div>
+    <script>
+        var gradient = new Gradient();
+        gradient.initGradient('#gradient-canvas');
+
+        function swapImages(clickedImage) {
+            var largeImage = document.getElementById("large-image"); // Get the large image
+            var clickedImageSrc = clickedImage.src; // Get the source of the clicked image
+
+            // Swap the sources
+            var currentLargeImageSrc = largeImage.src;
+            largeImage.src = clickedImageSrc;
+            clickedImage.src = currentLargeImageSrc;
+        }
+
+    // Function to send updated text to Flask backend
+    function updateText() {
+        var text = document.getElementById("editable-text").value; // Get the value from textarea
+        fetch("/update_text", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/x-www-form-urlencoded",
+            },
+            body: "text=" + encodeURIComponent(text),
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.status === "success") {
+                console.log("Text updated successfully");
+            }
+        });
+    }
+
+    // Trigger text update when text box loses focus
+    document.getElementById("editable-text").addEventListener('blur', updateText);
+    </script>
+</body>
+</html>

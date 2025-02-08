@@ -1,0 +1,87 @@
+style.css
+
+body, html {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+}
+
+canvas {
+    position: relative;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.gradient_canvas {
+    position : relative;
+    z-index: -100;
+}
+
+content {
+    z-index: 1;
+    position: absolute;
+    color: white;
+    font-family: "Raleway";
+    padding: 50px;
+}
+
+.text {
+	line-height: 1;
+	margin: var(--gradient-title-margin) 0 0 0;
+	text-transform: none;
+	letter-spacing: 2px;
+	min-height: 200px;
+	display: flex;
+	align-items: flex-end;
+}
+
+.text-above {
+	color: var(--font-color);
+	position: relative;
+}
+
+.text-under {
+	position: absolute;
+	bottom: 0;
+	left: 0;
+	z-index: 2;
+}
+.text-under-blended {
+	color: #3a3a3a;
+	mix-blend-mode: color-burn;
+}
+
+.text-under-overlay {
+	opacity: 0.2;
+	color: #3a3a3a;
+}
+
+/* Container to hold the large and small images */
+.container {
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-start;
+}
+
+.large-image img {
+    width: 540px; 
+    height: 540px;
+    margin-right: 20px;
+    object-fit: cover;
+}
+.small-images {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+.small-images img {
+    width: 180px; 
+    height: 180px;
+    margin-bottom: 10px;
+    cursor: pointer; 
+    object-fit: cover;
+}
