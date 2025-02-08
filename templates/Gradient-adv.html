@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Stripe Gradient</title>
+        <link rel="stylesheet" href="static/styles-adv.css">
+        <script src="static/Gradient.js"></script>
+    </head>
+    <style>
+        body {
+            margin:0;
+            padding:0;
+        }
+        #gradient-canvas {
+            --gradient-color-1: #6ec3f4;
+            --gradient-color-2: #3a3aff;
+            --gradient-color-3: #ff61ab;
+            --gradient-color-4: #E63946;
+        }
+    </style>
+    <body>
+        <canvas id="gradient-canvas" style="width:100vw;height:100vh"></canvas>
+    
+        <!-- Content over the canvas -->
+        <div class="content" style="position: absolute; top: 2.5%;  left:5%; text-align: center;
+            color: white;">
+            <h1 style="font-size:44 ;font-family: bold;"> Data Dashboard </h1>
+    
+        <div class="container">
+            <!-- Large Image on the left -->
+            <div class="large-image">
+                <img id="large-image" src="static/random.png" alt="Large Image">
+            </div>
+    
+            <!-- Small Images on the right -->
+            <div class="small-images">
+                <img src="static/random1.jpeg" alt="Small Image 1" onclick="swapImages(this)">
+                <img src="static/random2.webp" alt="Small Image 2" onclick="swapImages(this)">
+                <img src="static/random4.png" alt="Small Image 3" onclick="swapImages(this)">
+            </div>
+        </div>
+        </div>
+        <script>
+            var gradient = new Gradient();
+            gradient.initGradient('#gradient-canvas');
+
+            function swapImages(clickedImage) {
+                var largeImage = document.getElementById("large-image");
+
+                var clickedImageSrc = clickedImage.src;
+                
+                // Swap the sources
+                var currentLargeImageSrc = largeImage.src;
+                largeImage.src = clickedImageSrc;
+                clickedImage.src = currentLargeImageSrc;
+            }
+        </script>
+    </body>
+</html>
