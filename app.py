@@ -1,8 +1,13 @@
+import pandas as pd
+
 from flask import Flask, render_template, request, jsonify
+from graphgen import plot
+
 
 app = Flask(__name__)
 
 current_text = "This is the initial text."
+df = pd.read_csv('Diageo_Scotland_Full_Year_2024_Daily_Data.csv')
 
 @app.route('/')
 def index():
@@ -20,6 +25,12 @@ def submit_dates():
     data = request.json
     start_date = data.get("start_date")
     end_date = data.get("end_date")
+    site = data.get("site")
+    category = data.get("category")
+    
+    print(f"Received HIUIII Start Date: {start_date}, End Date: {end_date}")  # Debugging output
+    
+    plot(df, start_date, end_date, category, site)
 
     print(f"Received Start Date: {start_date}, End Date: {end_date}")  # Debugging output
     return jsonify({"status": "success", "message": "Dates received!", "start_date": start_date, "end_date": end_date})

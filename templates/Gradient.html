@@ -34,6 +34,30 @@
         
             <label for="end-date">End Date:</label>
             <input type="date" id="end-date" name="end-date">
+
+            <div class="additional-dropdowns">
+                <label for="site-select">Select Site:</label>
+                <select id="site-select" name="site-select">
+                  <option value="Cameronbridge">Cameronbridge</option>
+                  <option value="Blackgrange">Blackgrange</option>
+                  <option value="Glenkinchie">Glenkinchie</option>
+                </select>
+            
+                <label for="category-select">Select Category:</label>
+                <select id="category-select" name="category-select">
+                  <option value="Total_Energy_Consumption_MWh">Total_Energy_Consumption_MWh</option>
+                  <option value="Energy_Intensity_kWh_per_liter">Energy_Intensity_kWh_per_liter</option>
+                  <option value="Scope_1_Emissions_tonnes_CO2e">Scope_1_Emissions_tonnes_CO2e</option>
+                  <option value="Scope_2_Emissions_tonnes_CO2e">Scope_2_Emissions_tonnes_CO2e</option>
+                  <option value="Carbon_Intensity_kgCO2e_per_liter">Carbon_Intensity_kgCO2e_per_liter</option>
+                  <option value="On_Site_Renewable_Energy_Percentage">On_Site_Renewable_Energy_Percentage</option>
+                  <option value="Boiler_Efficiency_Percentage">Boiler_Efficiency_Percentage</option>
+                  <option value="Water_Consumption_liters_per_liter">Water_Consumption_liters_per_liter</option>
+                  <option value="Waste_Heat_Recovery_Efficiency_Percentage">Waste_Heat_Recovery_Efficiency_Percentage</option>
+                  <option value="Fuel_Type_Gas_Usage_GJ">Fuel_Type_Gas_Usage_GJ</option>
+                  <option value="Logistics_Carbon_Footprint_kgCO2e_per_km">Logistics_Carbon_Footprint_kgCO2e_per_km</option>
+                </select>
+              </div>
         
             <button onclick="submitDates()">Submit</button>
         </div>
@@ -100,6 +124,8 @@
     function submitDates() {
         let startDate = document.getElementById("start-date").value;
         let endDate = document.getElementById("end-date").value;
+        let site1 = document.getElementById("site-select").value;
+        let category1 = document.getElementById("category-select").value;
 
         if (startDate === "" || endDate === "") {
             alert("Please select both dates.");
@@ -119,6 +145,8 @@
             body: JSON.stringify({
                 start_date: startDate,
                 end_date: endDate,
+                site: site1,
+                category: category1,
             }),
         })
         .then(response => response.json())
@@ -126,10 +154,14 @@
             if (data.status === "success") {
                 alert("Dates processed successfully!");
                 console.log(data);
+                document.getElementById("large-image").src = "../static/carbon_footprint_plot.png?";                
             }
         });
+
+        
     }
     /* */
+
     
 
 

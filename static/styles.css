@@ -136,3 +136,25 @@ textarea {
     background-color: #0056b3;
 }
 
+.form-container {
+    display: flex;
+    flex-direction: column; /* Stack all elements vertically */
+    gap: 20px;  /* Space between sections */
+  }
+  
+  .date-picker-container, .additional-dropdowns {
+    display: flex;
+    align-items: center;
+    gap: 10px; /* Space between the dropdowns */
+  }
+  
+  .date-picker-container label, .additional-dropdowns label {
+    margin-right: 5px; /* Space between label and select box */
+  }
+  
+  select {
+    padding: 5px 10px;
+    font-size: 14px;
+  }
+  
+
