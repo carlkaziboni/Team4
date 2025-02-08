@@ -24,7 +24,7 @@
     <!-- Content over the canvas -->
     <div class="content" style="position: absolute; top: 2.5%;  left:5%; text-align: center;
             color: white;">
-        <h1> Data Dashboard </h1>
+        <h1> ZeroTrace - Diageo Eco Tracker </h1>
 
         <!-- NEW STUFF   -->
 
@@ -154,7 +154,7 @@
             if (data.status === "success") {
                 alert("Dates processed successfully!");
                 console.log(data);
-                document.getElementById("large-image").src = "../static/carbon_footprint_plot.png?";                
+                document.getElementById("large-image").src = "../static/carbon_footprint_plot.png?" + new Date().getTime();                
             }
         });
 
