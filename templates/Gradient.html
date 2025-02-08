@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+    <link href='https://fonts.googleapis.com/css?family=Raleway' rel='stylesheet'>
     <title>Stripe Gradient</title>
     <link rel="stylesheet" href="static/styles.css">
     <script src="static/Gradient.js"></script>
@@ -11,10 +12,10 @@
         padding:0;
     }
     #gradient-canvas {
-        --gradient-color-1: #6ec3f4;
-        --gradient-color-2: #3a3aff;
-        --gradient-color-3: #ff61ab;
-        --gradient-color-4: #E63946;
+        --gradient-color-1: #EEEEEB;
+        --gradient-color-2: #D1E9B8;
+        --gradient-color-3: #bbd1b5;
+        --gradient-color-4: #cde2d1;
     }
 </style>
 <body>
@@ -23,7 +24,7 @@
     <!-- Content over the canvas -->
     <div class="content" style="position: absolute; top: 2.5%;  left:5%; text-align: center;
             color: white;">
-        <h1 style="font-size:44; font-family: bold;"> Data Dashboard </h1>
+        <h1> Data Dashboard </h1>
 
         <div class="container">
             <!-- Large Image on the left -->
@@ -40,8 +41,7 @@
 
             <!-- Editable Text Box on the right -->
             <div class="text-box">
-                <label for="editable-text">Edit Text:</label>
-                <textarea id="editable-text" rows="10" cols="30" placeholder="Enter text here..." readonly>{{ text }}</textarea>
+                <textarea id="editable-text" rows="10" cols="30" placeholder="" readonly>{{ text }}</textarea>
             </div>
         </div>
     </div>
