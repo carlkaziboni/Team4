@@ -102,14 +102,37 @@ textarea {
 
 
 /* NEW STUFF */
-.date-picker {
+
+/* Flexbox to align inputs and button in a row */
+.date-container {
     display: flex;
-    flex-direction: column;
-    gap: 10px;
+    align-items: center;
+    gap: 10px; /* Spacing between elements */
     margin-top: 20px;
+    margin-bottom: 20px;
+    color: black;
 }
 
-.date-picker input, .date-picker button {
+/* Style inputs */
+.date-container input {
     padding: 8px;
-    font-size: 14px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
 }
+
+/* Style button */
+.date-container button {
+    padding: 8px 15px;
+    font-size: 16px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.date-container button:hover {
+    background-color: #0056b3;
+}
+
