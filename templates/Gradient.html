@@ -28,16 +28,16 @@
 
         <!-- NEW STUFF   -->
 
-        <div class="date-picker">
+        <div class="date-container">
             <label for="start-date">Start Date:</label>
-            <input type="date" id="start-date">
+            <input type="date" id="start-date" name="start-date">
         
             <label for="end-date">End Date:</label>
-            <input type="date" id="end-date">
+            <input type="date" id="end-date" name="end-date">
         
-            <button onclick="submitDates()">Submit Dates</button>
-            <p id="date-error" style="color: red; display: none;">End date must be after the start date!</p>
+            <button onclick="submitDates()">Submit</button>
         </div>
+        
 
         <!-- NEW STUFF   -->
         
@@ -100,41 +100,34 @@
     function submitDates() {
         let startDate = document.getElementById("start-date").value;
         let endDate = document.getElementById("end-date").value;
-        let errorMsg = document.getElementById("date-error");
-    
-        // Convert to Date objects for validation
-        let start = new Date(startDate);
-        let end = new Date(endDate);
-    
-        if (!startDate || !endDate) {
-            errorMsg.innerText = "Both dates must be selected!";
-            errorMsg.style.display = "block";
+
+        if (startDate === "" || endDate === "") {
+            alert("Please select both dates.");
             return;
         }
-    
-        if (end <= start) {
-            errorMsg.innerText = "End date must be after the start date!";
-            errorMsg.style.display = "block";
+
+        if (new Date(startDate) >= new Date(endDate)) {
+            alert("End date must be after the start date.");
             return;
         }
-    
-        // Hide error message if validation passed
-        errorMsg.style.display = "none";
-    
-        // Send data to backend
+
         fetch("/submit_dates", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
             },
-            body: JSON.stringify({ start_date: startDate, end_date: endDate }),
+            body: JSON.stringify({
+                start_date: startDate,
+                end_date: endDate,
+            }),
         })
         .then(response => response.json())
         .then(data => {
-            console.log("Response from server:", data);
-            alert("Dates submitted successfully!");
-        })
-        .catch(error => console.error("Error:", error));
+            if (data.status === "success") {
+                alert("Dates processed successfully!");
+                console.log(data);
+            }
+        });
     }
     /* */
     
