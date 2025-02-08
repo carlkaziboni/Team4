@@ -99,3 +99,17 @@ textarea {
     background: #e4f0d7;
     border: 1px solid rgba(255, 255, 255, 0.5);
 }
+
+
+/* NEW STUFF */
+.date-picker {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 20px;
+}
+
+.date-picker input, .date-picker button {
+    padding: 8px;
+    font-size: 14px;
+}
