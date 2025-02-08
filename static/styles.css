@@ -24,11 +24,19 @@ canvas {
 content {
     z-index: 5;
     position: absolute;
-    color: white;
+    color: rgba(0, 0, 0, 0.8);
     font-family: "Raleway", sans-serif;
     padding: 50px;
     display: flex;
     align-items: flex-start;
+}
+
+h1 {
+    text-align: center;
+    font-size: xx-large; 
+    font-weight: bold;
+    font-family: 'Raleway', sans-serif;
+    color: rgba(0, 0, 0, 0.8);
 }
 
 /* Container for large and small images and the text box */
@@ -44,6 +52,7 @@ content {
 
 /* Large image styling */
 .large-image img {
+    border-radius: 25px;
     width: 700px; /* Fixed size for the large image */
     height: 420px; /* Fixed size for the large image */
     margin-right: 20px; /* Space between large and small images */
@@ -59,6 +68,7 @@ content {
 }
 
 .small-images img {
+    border-radius: 25px;
     width: 234px; /* Fixed size for small images */
     height: 133px; /* Fixed size for small images */
     margin-bottom: 10px; /* Space between small images */
@@ -73,15 +83,19 @@ content {
     justify-content: flex-start;
     align-items: flex-start;
     width: 300px; /* Width of the text box */
-    height: 300px; /* Height of the text box */
-    margin-top: 20px;
+    height: 420px; /* Height of the text box */
 }
 
 textarea {
+    border-radius: 25px;
     width: 100%;
-    height: 80%;
+    height: 1000px;
     padding: 10px;
-    font-size: 16px;
+    font-size: 22px;
+    color: rgba(0, 0, 0, 0.8);
+    font-family: "Raleway", sans-serif;
     border: 1px solid #ccc;
     resize: none; /* Disable resizing */
+    background: #e4f0d7;
+    border: 1px solid rgba(255, 255, 255, 0.5);
 }

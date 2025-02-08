@@ -15,10 +15,5 @@ def update_text():
     current_text = new_text
     return jsonify({"status": "success", "new_text": current_text})
 
-@app.route('/update_image', methods=['POST'])
-def update_image():
-    global images
-    images = [None] * 3
-
 if __name__ == '__main__':
     app.run(debug=True)
