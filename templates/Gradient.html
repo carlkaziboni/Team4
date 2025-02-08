@@ -26,6 +26,22 @@
             color: white;">
         <h1> Data Dashboard </h1>
 
+        <!-- NEW STUFF   -->
+
+        <div class="date-picker">
+            <label for="start-date">Start Date:</label>
+            <input type="date" id="start-date">
+        
+            <label for="end-date">End Date:</label>
+            <input type="date" id="end-date">
+        
+            <button onclick="submitDates()">Submit Dates</button>
+            <p id="date-error" style="color: red; display: none;">End date must be after the start date!</p>
+        </div>
+
+        <!-- NEW STUFF   -->
+        
+
         <div class="container">
             <!-- Large Image on the left -->
             <div class="large-image">
@@ -79,6 +95,52 @@
 
     // Trigger text update when text box loses focus
     document.getElementById("editable-text").addEventListener('blur', updateText);
+
+    /* NEW STUFF */
+    function submitDates() {
+        let startDate = document.getElementById("start-date").value;
+        let endDate = document.getElementById("end-date").value;
+        let errorMsg = document.getElementById("date-error");
+    
+        // Convert to Date objects for validation
+        let start = new Date(startDate);
+        let end = new Date(endDate);
+    
+        if (!startDate || !endDate) {
+            errorMsg.innerText = "Both dates must be selected!";
+            errorMsg.style.display = "block";
+            return;
+        }
+    
+        if (end <= start) {
+            errorMsg.innerText = "End date must be after the start date!";
+            errorMsg.style.display = "block";
+            return;
+        }
+    
+        // Hide error message if validation passed
+        errorMsg.style.display = "none";
+    
+        // Send data to backend
+        fetch("/submit_dates", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({ start_date: startDate, end_date: endDate }),
+        })
+        .then(response => response.json())
+        .then(data => {
+            console.log("Response from server:", data);
+            alert("Dates submitted successfully!");
+        })
+        .catch(error => console.error("Error:", error));
+    }
+    /* */
+    
+
+
+
     </script>
 </body>
 </html>
