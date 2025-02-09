@@ -83,7 +83,65 @@ X_train, X_test, y_train, y_test = train_test_split(X, Y_2, test_size=0.3, rando
 model_MLP_y2 = MLPRegressor(max_iter=500)
 model_MLP_y2.fit(X_train, y_train)
 
+# Read CSV and extract features/labels
+with open("Diageo_Scotland_Full_Year_2024_Daily_Data.csv") as f:
+    reader = csv.reader(f)
+    next(reader)  # Skip header
 
+    data = []
+    for row in reader:
+        data.append({
+            "evidence": [float(cell) for cell in row[2:4]] + [float(cell) for cell in row[6:]],
+            "y_1": row[4]  # Ensure this is properly converted
+        })
+
+# Convert evidence and labels
+evidence = [row["evidence"] for row in data]
+y_1 = [row["y_1"] for row in data]
+
+# Convert y_1 to numeric values (check if it's categorical)
+try:
+    y_1 = [float(y) for y in y_1]  # If y_1 is numerical
+except ValueError:
+    encoder = LabelEncoder()
+    y_1 = encoder.fit_transform(y_1)  # Convert categorical labels to integers
+
+X_training, X_testing, y_training, y_testing = train_test_split(
+    np.array(evidence), np.array(y_1), test_size=0.4, random_state=42
+)
+
+# Define neural network model
+model_neural_network = tf.keras.models.Sequential([
+    tf.keras.layers.Dense(9, input_shape=(9,), activation="relu"),
+    tf.keras.layers.Dense(32, activation="relu"),
+    tf.keras.layers.Dense(64, activation="relu"),
+    tf.keras.layers.Dense(128, activation="relu"),
+    tf.keras.layers.Dense(256, activation="relu"),
+    tf.keras.layers.Dense(128, activation="relu"),
+    tf.keras.layers.Dense(64, activation="relu"),
+    tf.keras.layers.Dense(32, activation="relu"),
+    tf.keras.layers.Dense(1, activation="sigmoid")  # Keep if binary classification
+])
+
+# Compile the model
+model_neural_network.compile(optimizer=tf.keras.optimizers.Adam(learning_rate=0.0005), loss="binary_crossentropy", metrics=["accuracy"])
+
+from sklearn.preprocessing import StandardScaler
+
+scaler = StandardScaler()
+X_training = scaler.fit_transform(X_training)
+X_testing = scaler.transform(X_testing)  # Use same scaler
+
+
+# Convert to tensors
+X_tensor = tf.convert_to_tensor(X_training, dtype=tf.float32)
+Y_tensor = tf.convert_to_tensor(y_training, dtype=tf.float32)
+
+# Train model
+model_neural_network.fit(X_tensor, Y_tensor, epochs=200, batch_size=32, validation_split=0.1)
+
+
+#List models
 class ModelsMade():
     def PCAfunc():
         return model_PCA_y_1, model_PCA_Y_2
@@ -93,5 +151,8 @@ class ModelsMade():
     
     def MLPModel():
         return model_MLP_y1, model_MLP_y2
+    
+    def NNModel():
+        return model_neural_network
     
 print(ModelsMade.PCAfunc())
