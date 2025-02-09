@@ -82,3 +82,16 @@ model_MLP_y1.fit(X_train, y_train)
 X_train, X_test, y_train, y_test = train_test_split(X, Y_2, test_size=0.3, random_state=42)
 model_MLP_y2 = MLPRegressor(max_iter=500)
 model_MLP_y2.fit(X_train, y_train)
+
+
+class ModelsMade():
+    def PCAfunc():
+        return model_PCA_y_1, model_PCA_Y_2
+    
+    def MultiLinear():
+        return model_multi_y1, model_multi_y2
+    
+    def MLPModel():
+        return model_MLP_y1, model_MLP_y2
+    
+print(ModelsMade.PCAfunc())
