@@ -82,7 +82,19 @@
             <!-- Editable Text Box on the right -->
             <div class="text-box">
                 <textarea id="editable-text" rows="10" cols="30" placeholder="" readonly>{{ text }}</textarea>
+                <button id="generate-btn">Generate</button>
             </div>
+            
+            <script>
+                // Attach event listener only to the button
+                document.getElementById("generate-btn").addEventListener("click", function() {
+                    updateText();
+                });
+            
+                function updateText() {
+                    console.log("Button clicked!"); // Your function logic here
+                }
+            </script>
         </div>
     </div>
     <script>
@@ -102,17 +114,22 @@
     // Function to send updated text to Flask backend
     function updateText() {
         var text = document.getElementById("editable-text").value; // Get the value from textarea
+        var largeImage1 = document.getElementById("large-image").src; // Get the large image
+
         fetch("/update_text", {
             method: "POST",
             headers: {
-                "Content-Type": "application/x-www-form-urlencoded",
+                "Content-Type": "application/json",
             },
-            body: "text=" + encodeURIComponent(text),
+            body: JSON.stringify({
+                largeImage: largeImage1,
+            }),
         })
         .then(response => response.json())
         .then(data => {
             if (data.status === "success") {
                 console.log("Text updated successfully");
+                document.getElementById("editable-text").value = data['new_text'];
             }
         });
     }
@@ -154,18 +171,12 @@
             if (data.status === "success") {
                 alert("Dates processed successfully!");
                 console.log(data);
-                document.getElementById("large-image").src = "../static/carbon_footprint_plot.png?" + new Date().getTime();                
+                document.getElementById("large-image").src = "../static/carbon_footprint_plot.png?" + new Date().getTime();  
+                // UPDATE TXT              
             }
-        });
-
-        
+        });       
     }
     /* */
-
-    
-
-
-
     </script>
 </body>
 </html>
